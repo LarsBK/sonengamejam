@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="50" height="50" tilewidth="16" tileheight="16">
+ <tileset firstgid="1" name="caveterraintest" tilewidth="16" tileheight="16">
+  <image source="caveterraintest.png" width="256" height="16"/>
+  <terraintypes>
+   <terrain name="cave" tile="-1"/>
+  </terraintypes>
+  <tile id="0" terrain="0,0,0,0"/>
+  <tile id="1" terrain="0,0,0,0"/>
+  <tile id="2" terrain="0,0,0,0"/>
+  <tile id="11" terrain="0,0,,"/>
+  <tile id="12" terrain=",,0,"/>
+  <tile id="13" terrain="0,,0,"/>
+  <tile id="14" terrain=",,0,0"/>
+  <tile id="15" terrain="0,0,0,0"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="50" height="50">
+  <data encoding="base64" compression="zlib">
+   eJztmesOgyAMhdnmsrmbvP/TziYjYQ3UokDb6En6Y8aYfpy2oPPOuZfx8HN8nH3d3cGhSXvguMzxzMTYJTu+9uAHRznPevt1+MFTL78OP3RJmgPqbiR+n5jPkeaoJUsclDeWOCjlOG7uf05Ov8Dzklu/oOuaBJlKcUCvPdC1IXEtvp+zNwyMe1LP5Ow1gWNi3Fui0jzwnCpV4DhveIYGxXUFa/IWzGWLcH9Y9SU3r7bWa29R+0fJfJFWyT645JFkf9Xez6Xe6aXOJbX7T/p8BeefiQhunUpzwCyhvtvmzkJY0hy1ZI0D6jBVa9Y4cvlq58BzPPc/h3YOLKt+BIX5rN0P3L94X/FRaOWAnEOOqbxxaOWAHKi8tXPENW+BI3eGKs1fimPtemviiHvXKkdLhh4creooFfisWIujtQdLnmzhiOdQT4aaHL3XvwWHNAMEft8t4ejZxyVeBA7v6G8WUj1ARSq3Lx5GIiU=
+  </data>
+ </layer>
+</map>
