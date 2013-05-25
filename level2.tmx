@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="50" height="100" tilewidth="16" tileheight="16">
+ <tileset firstgid="1" name="Tiles" tilewidth="16" tileheight="16">
+  <image source="ccbResources/Tiles.png" width="800" height="600"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="50" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt28GOgjAURmF4UoOJoBjffysLF1ix2sst/KXnS7qaxfR4sTiYGdumGQtf/WuVjg4tdGhR6+imvdyMS6nDast5LL3Wg9PvVruurOjQsrZjzfni+V5hHlro0HL0jtg55HUPtlra29HnUZraO9TeP8rziL1WIeWOFLk7trr+mMf2YrMtqSOGDh9e58DeHV7o0EKHFrUOy/OwgfugnFo7PJ/nej7rrXUequYd366ZvZ+7/eOI8yiZpSPn965WNc9DEeeVFjq01NLx6/OtyhlQyzxKQYcWOvx0DueeQkfI0qXYYaHckTIX5Y4UdOxr/rmP5+35XaY9PYJ1j+xTtePcfv4v19Wp49S+r9Sf55SzI6Up/HvN836eupdYR+4Zbd2Rq6VfOBdKXIpnlQUdWo7SAQAAAAAA4OkJkEfEpg==
+  </data>
+ </layer>
+ <objectgroup name="platform" width="50" height="100">
+  <object name="heis" x="392" y="847">
+   <properties>
+    <property name="type" value="heis"/>
+   </properties>
+   <polyline points="0,0 1,179"/>
+  </object>
+ </objectgroup>
+ <objectgroup name="item" width="50" height="100">
+  <object name="sverd" x="749" y="267"/>
+ </objectgroup>
+ <objectgroup name="Zones" width="50" height="100">
+  <object name="dor" x="768" y="23" width="27" height="69">
+   <properties>
+    <property name="action" value="teleport"/>
+    <property name="direction" value="east"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>
