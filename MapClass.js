@@ -23,8 +23,8 @@ var MapClass = cc.TMXTiledMap.extend({
             for(var i = 0; i < triggers.length; i++){
                 var e = trigger[i];
                 console.log(e)
-                //var t = new Trigger(e)
-                //his.static_bodies[e["direction"]] = e;
+                var t = new Trigger(e)
+                this.static_bodies.push(t)
             }
         }
         
