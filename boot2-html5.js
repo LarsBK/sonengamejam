@@ -1,4 +1,4 @@
-var CCBMainScene = cc.Scene.extend({
+/*var CCBMainScene = cc.Scene.extend({
     ctor:function () {
         this._super();
 
@@ -9,3 +9,4 @@ var CCBMainScene = cc.Scene.extend({
     }
 });
 
+*/
