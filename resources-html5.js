@@ -6,4 +6,6 @@ var ccb_resources = [
     {type:'ccbi', src:"eksplosjon.ccbi"},
     {type:'ccbi', src:"røyk.ccbi"},
     {type:'ccbi', src:"Flamme.ccbi"},
+    {type:"tmx", src:"awesome-map.tmx"},
+    {type:"image", src:"Tiles.png"}
 ];

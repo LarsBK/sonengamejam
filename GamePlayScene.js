@@ -5,20 +5,20 @@ var CCBGamePlayScene = cc.Scene.extend({
     
     ctor:function() {
         this._super();
-        var node = cc.BuilderReader.load("gameplayscene.ccbi");
+        //var node = cc.BuilderReader.load("gameplayscene.ccbi");
         
         var p = new Player();
         p.setPosition(200,350);
         this.player = p;
         
         this.maplist = {};
-        this.loadMap("test-map.tmx");
+        this.loadMap("awesome-map.tmx");
     
         
         this.gpLayer = cc.Layer.create();
         this.addChild(this.gpLayer, 0, "gp")
         this.gpLayer.addChild(this.player);
-        this.changeMap(this.maplist["test-map.tmx"])
+        this.changeMap(this.maplist["awesome-map.tmx"])
         
         var plat = new Platform("PlaceChar.png", {x: 60, y: 200}, {x: 300, y: 200});
         this.static_body_list.push(plat);
