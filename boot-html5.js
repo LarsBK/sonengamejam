@@ -13,7 +13,10 @@
         appFiles:[
           'MainScene.js',
           "GamePlayScene.js",
-
+          "MapClass.js",
+          "Platform.js",
+          "Helpers.js",
+          "Player.js",
             'resources-html5.js',
             'boot2-html5.js'
             ]

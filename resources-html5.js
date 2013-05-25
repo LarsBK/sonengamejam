@@ -9,4 +9,7 @@ var ccb_resources = [
     {type:'image', src:"ccbResources/ccbParticleFire.png"},
     {type:'plist', src:"ccbResources/ccbDefaultImages.plist"},
     {type:'image', src:"ccbResources/ccbParticleSmoke.png"},
+    {type:"image", src:"caveterraintest.png"},
+    {type:"image", src:"PlaceChar.png"},
+    {type:"tmx", src:"test-map.tmx"}
 ];
