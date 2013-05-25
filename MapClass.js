@@ -11,21 +11,21 @@ var MapClass = cc.TMXTiledMap.extend({
             for(var y = 0; y < this.getMapSize().height; y++){
                 var t = this.getLayer("Tile Layer 1").getTileAt(new cc.Point(x,y));
                 if(t){
-                var r = new cc.Rect(t.getPosition().x, t.getPosition().y, t._rect.size.width, t._rect.size.height)
-                t.rect = r;
                     t.onColide = static_collide_func;
                     this.static_bodies.push(t);
                 }
             }
         }
         
-        var exitG = this.getObjectGroup("exits");
-        if(exitG) {
-            var exit = getObjects();
-        for(var i = 0; i < exit.length; i++){
-            var e = exit[0];
-            this.exits[e["direction"]] = e;
-        }
+        var triggers = this.getObjectGroup("triggers");
+        if(triggers) {
+            var trigger = triggers.getObjects();
+            for(var i = 0; i < triggers.length; i++){
+                var e = trigger[i];
+                console.log(e)
+                //var t = new Trigger(e)
+                //his.static_bodies[e["direction"]] = e;
+            }
         }
         
         //var obG = this.tiledMap.getObjectGroup()
