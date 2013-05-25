@@ -17,9 +17,14 @@ var CCBGamePlayScene = cc.Scene.extend({
         
         this.gpLayer = cc.Layer.create();
         this.addChild(this.gpLayer, 0, "gp")
-        this.gpLayer.addChild(this.player)
-        this.gpLayer.addChild(new Platform("PlaceChar.png", {x: 60, y: 200}, {x: 300, y: 200}));
+        this.gpLayer.addChild(this.player);
         this.changeMap(this.maplist["test-map.tmx"])
+        
+        var plat = new Platform("PlaceChar.png", {x: 60, y: 200}, {x: 300, y: 200});
+        this.static_body_list.push(plat);
+        this.currentmap.addChild(plat);
+        
+        this.gpLayer.addChild( cc.BuilderReader.load("Alarmlys.ccbi"))
         
         node.setKeyboardEnabled(true);
         node.onKeyDown = function(key) {this.getParent().onKeyDown(key);};
@@ -42,6 +47,7 @@ var CCBGamePlayScene = cc.Scene.extend({
     },
     
     changeMap:function(map){
+        console.log("changing to map " + map)
         if(this.currentmap){
             this.gpLayer.removeChild(this.currentmap)
         }
@@ -55,6 +61,9 @@ var CCBGamePlayScene = cc.Scene.extend({
     },
     
     onKeyDown : function(key) {
+        if(key == cc.KEY.t){
+            this.changeMap(this.currentmap);
+        }
         this.player.onKeyDown(key);
     },
     
@@ -78,7 +87,11 @@ var CCBGamePlayScene = cc.Scene.extend({
                     nextpos.y - b._rect.size.height/2, b._rect.size.width, b._rect.size.height);
             
                 for(var j = 0; j < this.static_body_list.length; j++){
-                    if(cc.rectIntersectsRect(nextrect, this.static_body_list[j].rect)){
+                    //console.log(this.static_body_list[j])
+                    var re = this.static_body_list[j]._rect;
+                    re.origin = this.static_body_list[j].getPosition();
+                    //console.log(re)
+                    if(cc.rectIntersectsRect(nextrect, re)){
                         if("onColide" in b){
                             redo = redo || b.onColide(this.static_body_list[j]);
                         }

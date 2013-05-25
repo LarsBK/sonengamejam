@@ -9,25 +9,27 @@ var Platform = cc.Sprite.extend({
         this.position = { x: startpos.x, y: startpos.y };
         this.setPosition(this.position);
         this.scheduleUpdate();
+        this.onColide = static_collide_func;
     },
     
+    ________type: "PLATFORM!",
     time: 0,
+    speed: {x: 0, y: 0},
     
     update:function(dt)
     {
         this.time += dt;
         var sin = Math.sin(this.time)/2+0.5;
         
-        this.position.x = (this.endpos.x-this.startpos.x)*sin+this.startpos.x;
-        this.position.y = (this.endpos.y-this.startpos.y)*sin+this.startpos.y;
+        var newpos = { x: 0, y: 0};
+        
+        newpos.x = (this.endpos.x-this.startpos.x)*sin+this.startpos.x;
+        newpos.y = (this.endpos.y-this.startpos.y)*sin+this.startpos.y;
+        
+        this.speed = { x: (newpos.x-this.position.x)/dt, y: (newpos.y-this.position.y)/dt};
+        
+        this.position = newpos;
         
         this.setPosition(this.position)
     },
-    
-    onColide:function()
-    {
-        
-        
-    }
-    
 });

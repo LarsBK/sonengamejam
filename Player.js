@@ -45,8 +45,13 @@ var Player = cc.Sprite.extend({
         if(this.brake){
             if(Math.abs(this.speed.x) < 10){
                 this.speed.x = 0;
-            }            this.accel.x = -2*this.speed.x;
-            //this.accel.y = -0.5*this.speed.y;
+            }
+            if("speed" in other){
+                this.speed.x = other.speed.x;
+                this.speed.y = other.speed.y;
+            }else{
+                this.accel.x = -2*this.speed.x;
+            }
         
         }
         if(this.jump){
