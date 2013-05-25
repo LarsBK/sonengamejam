@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="50" height="50" tilewidth="16" tileheight="16">
+ <tileset firstgid="1" name="caveterraintest" tilewidth="16" tileheight="16">
+  <image source="caveterraintest.png" width="256" height="16"/>
+  <terraintypes>
+   <terrain name="cave" tile="-1"/>
+  </terraintypes>
+  <tile id="0" terrain="0,0,0,0"/>
+  <tile id="1" terrain="0,0,0,0"/>
+  <tile id="2" terrain="0,0,0,0"/>
+  <tile id="11" terrain="0,0,,"/>
+  <tile id="12" terrain=",,0,"/>
+  <tile id="13" terrain="0,,0,"/>
+  <tile id="14" terrain=",,0,0"/>
+  <tile id="15" terrain="0,0,0,0"/>
+ </tileset>
+ <tileset firstgid="17" name="SteelTile" tilewidth="16" tileheight="16">
+  <image source="SteelTile.png" width="256" height="16"/>
+ </tileset>
+ <layer name="main" width="50" height="50">
+  <data encoding="base64" compression="zlib">
+   eJztmdtOwzAMhg0bgnFqr2AaQuz9n5JaaqRgEtc52YnWX/ov1laVv/qQtJsB4HVwz4vfYXw9wc7Rk26B47D4JeKTSnRy3UI+JIrlTDtfez5k0srXno++ZM2BdXdift8J72PNUUsjcXC5GYmDU4zjEf7OyWk1nZfS+kU95AQoVIgDe+2ZHDsGjvnXS9aGo+Ca0D0la43jmATXpig1DjqnUuU47gvu0YP8usJn8mYYS4lof4yal9i8Kq1XbXHrR8p8sVbKOriVI8v+qr2eW73TW+1Lavef9f4K9z8TY2mdWnPgLOG+28b2QlTWHLXEcZxXc/pc/EP8XS26/8I6DNVaKQeevxJ/ZMQnVSzeEg53/grtOOgcj/3PkctxBh0OqpJ8bPmL+FIz8FVuPufkQ1O0f+m6MnvulQNjdjGG4qbulQNj4OLuncOv+RE4Ynuo1PitOHKfd08cfu+OytGSQYOjVR2FTPeKtTha52ArJyUc/hzSZKjJof38W3BYM6Dp+24Kh2Yfp+TCcczAf7Ow6gHOodh+AUdLJ10=
+  </data>
+ </layer>
+</map>
