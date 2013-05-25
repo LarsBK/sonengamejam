@@ -1,9 +1,15 @@
 var Player = cc.Sprite.extend({
     ctor:function() {
            this._super();
-           this.initWithFile("ccbResources/PlaceChar.png")
-           //this.spr = cc.BuilderReader.load("Player.ccbi")
-           //this.addChild(spr)
+           //this.initWithFile("ccbResources/PlaceChar.png")
+           this.spr = cc.BuilderReader.load("Player.ccbi")
+           this.addChild(this.spr)
+           this.spr.setPosition(0,0)
+           console.log(this)
+           console.log(this.spr)
+           this._rect = this.spr._rect;
+           this.spr.animationManager.runAnimationsForSequenceNamed("punch")
+           //this.spr.animationManager.runAnimations();
            this.speed = {x:0, y:0};
            this.accel = {x:0, y:0};
            this.brake = true;
