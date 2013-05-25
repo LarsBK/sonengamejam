@@ -5,10 +5,10 @@ var CCBGamePlayScene = cc.Scene.extend({
     
     ctor:function() {
         this._super();
-        //var node = cc.BuilderReader.load("gameplayscene.ccbi");
+        var node = cc.BuilderReader.load("gameplayscene.ccbi");
         
         var p = new Player();
-        p.setPosition(200,350);
+        p.setPosition(500,350);
         this.player = p;
         
         this.maplist = {};
@@ -20,11 +20,11 @@ var CCBGamePlayScene = cc.Scene.extend({
         this.gpLayer.addChild(this.player);
         this.changeMap(this.maplist["awesome-map.tmx"])
         
-        var plat = new Platform("PlaceChar.png", {x: 60, y: 200}, {x: 300, y: 200});
+        var plat = new Platform("ccbResources/metalplatform.png", {x: 60, y: 200}, {x: 300, y: 200});
         this.static_body_list.push(plat);
         this.currentmap.addChild(plat);
         
-        this.gpLayer.addChild( cc.BuilderReader.load("Alarmlys.ccbi"))
+        //this.gpLayer.addChild( cc.BuilderReader.load("Alarmlys.ccbi"))
         
         node.setKeyboardEnabled(true);
         node.onKeyDown = function(key) {this.getParent().onKeyDown(key);};

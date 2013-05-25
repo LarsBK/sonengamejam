@@ -1,7 +1,7 @@
 var Player = cc.Sprite.extend({
     ctor:function() {
            this._super();
-           //this.initWithFile("PlaceChar.png")
+           this.initWithFile("ccbResources/PlaceChar.png")
            //this.spr = cc.BuilderReader.load("Player.ccbi")
            //this.addChild(spr)
            this.speed = {x:0, y:0};
