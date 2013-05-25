@@ -12,13 +12,13 @@ var CCBGamePlayScene = cc.Scene.extend({
         this.player = p;
         
         this.maplist = {};
-        this.loadMap("awesome-map.tmx");
+        this.loadMap("LevelOne.tmx");
     
         
         this.gpLayer = cc.Layer.create();
         this.addChild(this.gpLayer, 0, "gp")
         this.gpLayer.addChild(this.player);
-        this.changeMap(this.maplist["awesome-map.tmx"])
+        this.changeMap(this.maplist["LevelOne.tmx"])
         
         var plat = new Platform("ccbResources/metalplatform.png", {x: 60, y: 200}, {x: 300, y: 200});
         this.static_body_list.push(plat);
