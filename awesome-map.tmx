@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="100" height="100" tilewidth="16" tileheight="16">
+ <tileset firstgid="1" name="Tiles" tilewidth="16" tileheight="16">
+  <image source="Tiles.png" width="800" height="600"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt2SsOgDAQRVH2vwESQAAr5eNKGkRF+8Q5yZhR01zZaQIAAAAAAAAAWqyjD6CwjT6Agh5Z9MiiRxY9suiRRY8semTRI4seWfTIokcWPbLokUWPLHpkqfXwRzVOrcezm3sfwuuvhyb96ZFluef4zFnZtc7e7SUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMNYFKq0h4A==
+  </data>
+ </layer>
+ <objectgroup name="Object Layer 1" width="100" height="100"/>
+ <objectgroup name="Triggers" width="100" height="100">
+  <object name="TP-East" type="Teleport" x="328" y="612">
+   <properties>
+    <property name="action" value="teleport"/>
+    <property name="dir" value="east"/>
+   </properties>
+  </object>
+  <object name="BOX OF DOOOOOOOM" x="478" y="622" width="21" height="40">
+   <properties>
+    <property name="action" value="death"/>
+    <property name="type1" value="painful"/>
+    <property name="type2" value="slow"/>
+   </properties>
+  </object>
+  <object name="BOX OF LAAAAAAARS" gid="51" x="512" y="658">
+   <properties>
+    <property name="action" value="win"/>
+    <property name="type" value="hurray"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Platforms" width="100" height="100">
+  <object name="Platform1" x="279" y="471">
+   <polyline points="0,0 288,0"/>
+  </object>
+ </objectgroup>
+</map>
