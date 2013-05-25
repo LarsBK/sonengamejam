@@ -8,16 +8,7 @@
    eJzt2SsOgDAQRVH2vwESQAAr5eNKGkRF+8Q5yZhR01zZaQIAAAAAAAAAWqyjD6CwjT6Agh5Z9MiiRxY9suiRRY8semTRI4seWfTIokcWPbLokUWPLHpkqfXwRzVOrcezm3sfwuuvhyb96ZFluef4zFnZtc7e7SUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMNYFKq0h4A==
   </data>
  </layer>
- <objectgroup name="Object Layer 1" width="100" height="100">
-  <object name="Box" type="box" x="229" y="598" width="52" height="53">
-   <properties>
-    <property name="sexy" value="yes"/>
-   </properties>
-  </object>
- </objectgroup>
- <imagelayer name="Image Layer 1" width="100" height="100">
-  <image source="../../../My Pictures/Capture.PNG"/>
- </imagelayer>
+ <objectgroup name="Object Layer 1" width="100" height="100"/>
  <objectgroup name="Triggers" width="100" height="100">
   <object name="TP-East" type="Teleport" x="328" y="612">
    <properties>
