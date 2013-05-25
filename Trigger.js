@@ -1,10 +1,9 @@
 var Trigger = cc.Node.extend({
-   ctor:function(bounds, action, parent) {
-       this.parent = parent;
-       this.action = action;
-       this._rect = bounds.size;
+   ctor:function(e) {
+       this.t =e
+       this._rect = new cc.Rect(0,0,10,20)//todo fix
    },
    onColide:function(other){
-       this.parent.trigger(action);
+       this.getParent().trigger(this.t);
    }
 });
