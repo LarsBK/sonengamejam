@@ -42,7 +42,7 @@ var createLayout = function(start, end, rest){
     var done = [];
     //TODO check end added
     while(true){
-        if(floor > 10 || rest.length == 0){
+        if(floor > 2 || rest.length == 0){
             rest.push(end);
             console.log("time for end map")
         }
@@ -56,7 +56,7 @@ var createLayout = function(start, end, rest){
                 
                 var orig = Math.floor(Math.random()*rest.length);
                 
-                for(var nmap = orig; nmap != Math.abs(((orig-1)%rest.length)); nmap++){
+                for(var nmap = orig; nmap != Math.abs(((orig-1)%rest.length)); nmap =(nmap+1)%rest.length){
                     var omap = new MapClass(rest[nmap]);
                 
                     if("east" in omap.exits) {
@@ -67,8 +67,7 @@ var createLayout = function(start, end, rest){
                         added = true;
                     }                 
                 }
-                if(nmap == Math.abs(((orig-1)%rest.length)))
-                        throw new LULZESCEPTION();
+                
             }
             
             if("east" in rom.exits && (rom.exits["east"].map == null)){
@@ -76,7 +75,7 @@ var createLayout = function(start, end, rest){
                 
                 var orig = Math.floor(Math.random()*rest.length);
                 
-                for(var nmap = orig; nmap != Math.abs(((orig-1)%rest.length)); nmap++) {
+                for(var nmap = orig; nmap != Math.abs(((orig-1)%rest.length)); nmap =(nmap+1)%rest.length) {
                     var omap = new MapClass(rest[nmap]);
                     
                     if("west" in omap.exits){
@@ -86,15 +85,16 @@ var createLayout = function(start, end, rest){
                         added = true;
                     }
                 }
-                if(nmap == Math.abs(((orig-1)%rest.length)))
-                        throw new LULZESCEPTION();
+                
+                //if(nmap == Math.abs(((orig-1)%rest.length)))
+                //        throw new LULZESCEPTION();
             }
             if("down" in rom.exits && (rom.exits["down"].map == null)){
                 console.log("down")
                 
                 var orig = Math.floor(Math.random()*rest.length);
                 
-                for(var nmap = orig; nmap != Math.abs(((orig-1)%rest.length)); nmap++) {
+                for(var nmap = orig; nmap != Math.abs(((orig-1)%rest.length)); nmap =(nmap+1)%rest.length) {
                     var omap = new MapClass(rest[nmap]);
                 
                     if("up" in omap.exits){
@@ -104,9 +104,6 @@ var createLayout = function(start, end, rest){
                         added = true;
                     }
                 }
-                
-                if(nmap == Math.abs(((orig-1)%rest.length)))
-                        throw new LULZESCEPTION();
             }
             
             if(rom.location.y < floor || newFloor == true){
@@ -114,7 +111,7 @@ var createLayout = function(start, end, rest){
                     console.log("up")
                     var orig = Math.floor(Math.random()*rest.length);
                 
-                    for(var nmap = orig; nmap != Math.abs(((orig-1)%rest.length)); nmap++) {
+                    for(var nmap = orig; nmap != Math.abs(((orig-1)%rest.length)); nmap =(nmap+1)%rest.length) {
                         var omap = new MapClass(rest[nmap]);
                         if("down" in omap.exits){
                             console.log("down")
@@ -124,9 +121,6 @@ var createLayout = function(start, end, rest){
                             added = true;
                         }
                     }
-                    
-                    if(nmap == Math.abs(((orig-1)%rest.length)))
-                        throw new LULZESCEPTION();
                 }
             }
             

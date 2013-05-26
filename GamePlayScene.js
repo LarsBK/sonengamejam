@@ -7,7 +7,12 @@ var CCBGamePlayScene = cc.Scene.extend({
 
         
 
-        var maplist = ["map03.tmx", "map04.tmx"];
+        var maplist = [];//"map03.tmx", "map04.tmx"];
+        
+        for(var i = 1; i < 16; i++){
+            maplist.push("lvl" + i + ".tmx")
+        }
+        
         this.rooms = createLayout("map02.tmx", "map01.tmx", maplist); //maplist);
         //this.loadMap("LevelOne.tmx");
         //this.loadMap("level2.tmx")
@@ -23,7 +28,7 @@ var CCBGamePlayScene = cc.Scene.extend({
         //this.gpLayer.addChild( cc.BuilderReader.load("Alarmlys.ccbi"))
         
 
-        this.isTeleporting = false;
+        
         this.scheduleUpdate();
         
 
@@ -83,13 +88,6 @@ var CCBGamePlayScene = cc.Scene.extend({
     teleportTo:function(from, dir){
         console.log("teleport")
         var m = this.currentmap.exits[dir];
-        
-        if(!("to" in m))
-        {
-            this.isTeleporting = false;
-            return;
-        }
-        
         var y = from.getPosition().y - m.to.trigger.getPosition().y;
         //this.lava.setPosition(0, this.lava.getPosition().y + y)
         
@@ -99,10 +97,10 @@ var CCBGamePlayScene = cc.Scene.extend({
         switch(dir)
         {
             case "east":
-                px += m.to.trigger._rect.width + this.player._rect.width;
+                px += m.to.trigger.getContentSize().width + 10;
                 break;
             case "west":
-                px -= m.to.trigger._rect.width + this.player._rect.width;
+                px -= m.to.trigger.getContentSize().width + 10;
                 break;
             case "north":
                 this.player.speed = {x: this.player.speed.x, y: this.player.speed.y + 100 };
