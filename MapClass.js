@@ -25,15 +25,23 @@ var MapClass = cc.TMXTiledMap.extend({
                 var o = trigger[i]
                 console.log(o)
                 if(o.type == "teleport"){
-                    this.exits[o.dir] = {};
+                    o.action = "teleport"
                     var t = new Trigger(o)
+                    this.exits[o.direction] = {trigger:t};
                     this.static_bodies.push(t)
                     this.addChild(t)
                 }else if(o.type== "platform"){
                   var p = new Platform("ccbResources/" + o.sprite,{x:o.x, y:o.y}, {x:o.x+o.width, y:o.y+o.height});
                   this.static_bodies.push(t);
                   this.addChild(p);
-                    //{x:o.
+                }else if(o.type == "turret"){
+                    var t = new Turret(o);
+                    this.addChild(t);
+                    this.static_bodies.push(t)
+                } else if(o.type == "slime"){
+                    var s = new Slime(t);
+                    this.addChild(t);
+                    this.static_bodies.push(t);
                 }
             }
         }

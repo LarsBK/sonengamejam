@@ -4,21 +4,16 @@ var CCBGamePlayScene = cc.Scene.extend({
     
     ctor:function() {
         this._super();
-        var node = cc.BuilderReader.load("gameplayscene.ccbi");
-        this.addChild(node, 1, "hud");
+
         
-        var p = new Player();
-        p.setPosition(500,350);
-        this.player = p;
-        
-        //var maplist = ["LevelOne.tmx", "level2.tmx"];
-        this.rooms = createLayout("LevelOne.tmx", "level2.tmx", []);
+
+        var maplist = ["map03.tmx", "map04.tmx"];
+        this.rooms = createLayout("map02.tmx", "map01.tmx", maplist); //maplist);
         //this.loadMap("LevelOne.tmx");
         //this.loadMap("level2.tmx")
+        this.currentmap = null;
         
-        this.gpLayer = cc.Layer.create();
-        this.addChild(this.gpLayer, 0, "gp")
-        this.gpLayer.addChild(this.player);
+        
         this.changeMap(this.rooms[0])
         
         //var plat = new Platform("ccbResources/metalplatform.png", {x: 0, y: 20}, {x: 0, y: 300});
@@ -27,48 +22,119 @@ var CCBGamePlayScene = cc.Scene.extend({
         
         //this.gpLayer.addChild( cc.BuilderReader.load("Alarmlys.ccbi"))
         
+
+        this.isTeleporting = false;
+        this.scheduleUpdate();
+        
+
+        //this.static_body_list.push(this.lava)
+        
+    },
+    
+    addPlayer:function(){
+        var p = new Player();
+        p.setPosition(60,80);
+        this.player = p;
+    },
+    
+    changeMap:function(map){
+        if("gpLayer" in this) this.gpLayer.removeAllChildren();
+        this.removeAllChildren();
+        
+        //HUD
+        var node = cc.BuilderReader.load("gameplayscene.ccbi");
+        this.addChild(node, 1, "hud");
         node.setKeyboardEnabled(true);
         node.onKeyDown = function(key) {this.getParent().onKeyDown(key);};
         node.onKeyUp = function(key) { this.getParent().onKeyUp(key);};
         
-        //this.addChild(cc.LayerColor.create(cc.c4b(180,100,180,255)), -2, "background");
-        this.setPosition(cc.p(0,0));  
-        this.scheduleUpdate();
+        //Gameplay layer
+        this.gpLayer = cc.Layer.create();
         
-        this.lava = new Lava();
-        this.lava.setPosition(0,-100)
-        this.gpLayer.addChild(this.lava, 5, "lava")
-        this.lava.changeWidth(this.currentmap.getContentSize().width)
-        this.static_body_list.push(this.lava)
+        console.log("IMPORTANT:")
+        console.log(this.gpLayer)
         
-    },
-    
-    changeMap:function(map){
-        console.log("changing to map " + map)
-        if(this.currentmap){
-            this.gpLayer.removeChild(this.currentmap)
+        this.addChild(this.gpLayer, 0, "gp")
+        if(this.currentmap == null){
+            this.addPlayer();
+            //this.gpLayer.addChild(this.player, -10);
         }
+        
+        
+        this.gpLayer.addChild(this.player, -10, "Playa") 
+
+        console.log("changing to map " + map)
+        this.currentmap = map;
         this.static_body_list = map.static_bodies;
         this.dynamic_body_list = [];
         this.dynamic_body_list.push(this.player);
         
+        //Map
         this.gpLayer.addChild(map, 0, "map")
-        this.currentmap = map;
+        
+        //Follow
         var follow = cc.Follow.create(this.player, new cc.Rect(0,0, this.currentmap._contentSize.width, this.currentmap._contentSize.height))
         this.gpLayer.runAction(follow)
-        this.getChildByTag("hud").roomLabel = "Floor: " + map.location.y + " Room: " + map.location.x;
+        this.roomLabel = "Floor: " + map.location.y + " Room: " + map.location.x;
+        this.setPosition(cc.p(0,0));  
         
     },
     
     teleportTo:function(from, dir){
+        console.log("teleport")
         var m = this.currentmap.exits[dir];
-        var y = from.getPosition().y - m.to.getPosition().y;
-        this.lava.setPosition(0, this.lava.getPosition().y + y)
         
+        if(!("to" in m))
+        {
+            this.isTeleporting = false;
+            return;
+        }
+        
+        var y = from.getPosition().y - m.to.trigger.getPosition().y;
+        //this.lava.setPosition(0, this.lava.getPosition().y + y)
+        
+        var px = m.to.trigger.getPosition().x;
+        var py = m.to.trigger.getPosition().y;
+        
+        switch(dir)
+        {
+            case "east":
+                px += m.to.trigger._rect.width + this.player._rect.width;
+                break;
+            case "west":
+                px -= m.to.trigger._rect.width + this.player._rect.width;
+                break;
+            case "north":
+                this.player.speed = {x: this.player.speed.x, y: this.player.speed.y + 100 };
+                break;
+            case "south":
+                break;
+            default:
+                ENOSUCHCASEEXCEPTION;
+        }
+
+        console.log("STart")
+        console.log(this.player._position)
+        this.player.setPosition(px, this.player.getPosition().y);
+            //m.to.trigger.getPosition().y);
+        //this.player.setPosition(100,100);
+        console.log(this.player._position)
         this.changeMap(m.map)
+        
+        console.log(this.player._position)
+        this.player.visit();
+        console.log("END")
+        
+        this.lava = new Lava();
+        this.lava.setPosition(0,-100)
+        this.gpLayer.addChild(this.lava, 5, "lava")
+        this.static_body_list.push(this.lava)
+        this.lava.changeWidth(this.currentmap.getContentSize().width)
+        this.isTeleporting = false;
     },
     
     trigger:function(t, trigger){
+        console.log("trigger! ")
         console.log(t)
         if(t.action=="die"){
             console.log("game over")
@@ -76,7 +142,12 @@ var CCBGamePlayScene = cc.Scene.extend({
             
         }
         if(t.action=="teleport"){
-            this.teleportTo(trigger, t.direction);
+            if(this.isTeleporting)
+                return;
+            this.isTeleporting = true;
+            var th = this;
+            this.scheduleOnce(function(){th.teleportTo(trigger, t.direction)}, 0);
+            return false;
         }
     },
     
@@ -119,7 +190,7 @@ var CCBGamePlayScene = cc.Scene.extend({
             while(redo &&  it++ < 100){
                 if(it > 5){
                     b.speed.y = (it-5)*10;
-                    console.log("EJECT!")
+                    //console.log(b)
                 }
                 redo = false;
                 
@@ -127,25 +198,50 @@ var CCBGamePlayScene = cc.Scene.extend({
 
                 var nextrect = new cc.Rect( nextpos.x - b._rect.size.width/2,
                     nextpos.y - b._rect.size.height/2, b._rect.size.width, b._rect.size.height);
-            
-                for(var j = 0; j < this.static_body_list.length; j++){
+        
+                for(var j = 0; j < this.dynamic_body_list.length; j++){
                     //console.log(this.static_body_list[j])
-                    var s = this.static_body_list[j]
+                    var s = this.dynamic_body_list[j]
+                    if(s == b){
+                        continue;
+                    }
                     var re;
-                    if("_rect" in this.static_body_list[j]) {
-                        re = new cc.Rect(this.static_body_list[j].getPosition().x ,this.static_body_list[j].getPosition().y,
-                        this.static_body_list[j]._rect.width, this.static_body_list[j]._rect.height);
+                    if("_rect" in s) {
+                        re = new cc.Rect(s.getPosition().x ,s.getPosition().y,
+                        s._rect.width, s._rect.height);
                     } else {
-                        re = new cc.Rect(this.static_body_list[j].getPosition().x, this.static_body_list[j].getPosition().y,
-                        this.static_body_list[j].getContentSize().width, this.static_body_list[j].getContentSize().height);
+                        re = new cc.Rect(s.getPosition().x, s.getPosition().y,
+                        s.getContentSize().width, s.getContentSize().height);
                     }
                     //console.log(re)
                     if(cc.rectIntersectsRect(nextrect, re)){
                         if("onColide" in b){
-                            redo = redo || b.onColide(this.static_body_list[j]);
+                            redo = redo || b.onColide(s);
                         }
-                       if("onColide" in this.static_body_list[j]){
-                            redo = redo || this.static_body_list[j].onColide(b);
+                       if("onColide" in s){
+                            redo = redo || s.onColide(b);
+                        }
+                    }
+                }
+        
+                for(var j = 0; j < this.static_body_list.length; j++){
+                    //console.log(s)
+                    var s = this.static_body_list[j]
+                    var re;
+                    if("_rect" in s) {
+                        re = new cc.Rect(s.getPosition().x ,s.getPosition().y,
+                        s._rect.width, s._rect.height);
+                    } else {
+                        re = new cc.Rect(s.getPosition().x, s.getPosition().y,
+                        s.getContentSize().width, s.getContentSize().height);
+                    }
+                    //console.log(re)
+                    if(cc.rectIntersectsRect(nextrect, re)){
+                        if("onColide" in b){
+                            redo = redo || b.onColide(s);
+                        }
+                       if("onColide" in s){
+                            redo = redo || s.onColide(b);
                         }
                     }
                 }

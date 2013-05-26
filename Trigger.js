@@ -6,9 +6,10 @@ var Trigger = cc.Node.extend({
        this._rect = new cc.Rect(0,0,e.width, e.height);
    },
    onColide:function(other){
-      
-      if(other == this.getParent().getParent().player){
-       this.getParent().getParent().trigger(this.t, this)
+      console.log("Trigger colide!")
+      if(other == this.getParent().getParent().getParent().player){
+          console.log("With player!")
+           return this.getParent().getParent().getParent().trigger(this.t, this)
       }
    }
 });

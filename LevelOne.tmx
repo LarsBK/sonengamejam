@@ -21,6 +21,14 @@
     <property name="sprite" value="metalplatform.png"/>
    </properties>
   </object>
+  
+      <object name="Turret" x="400" y="312" width="200" heigth="20">
+   <properties>
+    <property name="type" value="turret"/>
+    <property name="direction" value="east"/>
+        <property name="interval" value="1"/>
+   </properties>
+  </object>
   <object name="Bevegende platform 2" x="512" y="312" width="100" height="10">
     <property name="sprite" value="metalplatform.png"/>
   </object>
