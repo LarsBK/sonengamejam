@@ -17,14 +17,20 @@ var MapClass = cc.TMXTiledMap.extend({
             }
         }
         
-        var triggers = this.getObjectGroup("triggers");
+        var triggers = this.getObjectGroup("objects");
         if(triggers) {
             var trigger = triggers.getObjects();
             for(var i = 0; i < triggers.length; i++){
+                var o = triggers[i]
+                if(triggers[i].type == "trigger"){
                 var e = trigger[i];
                 console.log(e)
                 var t = new Trigger(e)
                 this.static_bodies.push(t)
+                }else if(triggers[i].type== "platform"){
+                  //  var p = new Platform(o.sprite,
+                   //     {x:o.
+                }
             }
         }
         
