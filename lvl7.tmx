@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="32" height="32" tilewidth="16" tileheight="16">
+ <tileset firstgid="1" name="Tiles" tilewidth="16" tileheight="16">
+  <image source="ccbResources/Tiles.png" width="800" height="600"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="32" height="32">
+  <data encoding="base64" compression="zlib">
+   eJzt17ENwCAQQ1EzU1p2YawbNk2UDczlwCgy0q9f4ysIACFO9ezbtw/cZKv83vjsa312K8xmTtm/fft/85nbtK/3d5v2v/uzTrV/FZXxq2zWr/Qy/mjrUv+73x4IQNFN
+  </data>
+ </layer>
+ <objectgroup name="objects" width="32" height="32">
+  <object type="teleport" x="3" y="373" width="12" height="115">
+   <properties>
+    <property name="direction" value="west"/>
+   </properties>
+  </object>
+  <object type="slime" x="193" y="177" width="186" height="9"/>
+ </objectgroup>
+</map>
