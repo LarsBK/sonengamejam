@@ -26,5 +26,6 @@
     <property name="direction" value="east"/>
    </properties>
   </object>
+  <object x="181" y="655" width="1"/>
  </objectgroup>
 </map>
