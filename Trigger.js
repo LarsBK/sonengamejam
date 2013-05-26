@@ -11,7 +11,11 @@ var Trigger = cc.Node.extend({
    }
 });
 
-var Lava = cc.Layer.extend({
+var Lava = cc.LayerColor.extend({
+   ctor:function(){
+      this._super(new cc.c4b(100,0,0,255))
+      this.scheduleUpdate()
+   },
    onColide:function(other){
       if(other == this.getParent().player){
          this.getParent().trigger({action:"die"})
