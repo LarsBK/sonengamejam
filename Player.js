@@ -4,14 +4,15 @@ var Player = cc.Sprite.extend({
            //this.initWithFile("ccbResources/PlaceChar.png")
            this.spr = cc.BuilderReader.load("Player.ccbi")
            this.addChild(this.spr)
-           this.spr.setPosition(0,0)
+           this.spr.setPosition(0,-32)
            console.log(this)
            console.log(this.spr)
            this._rect = this.spr._rect;
-           this.spr.animationManager.runAnimationsForSequenceNamed("punch")
+           this.spr.animationManager.runAnimationsForSequenceNamed("stand")
            //this.spr.animationManager.runAnimations();
            this.speed = {x:0, y:0};
            this.accel = {x:0, y:0};
+           this.jumpTime = 0;
            this.brake = true;
            console.log(this.speed)
            
@@ -21,12 +22,20 @@ var Player = cc.Sprite.extend({
             case cc.KEY.d:
                 this.accel.x = 600;
                 this.brake = false;
+                this.spr.setScaleX(1)
+                this.spr.animationManager.runAnimationsForSequenceNamed("gaa")
                 break;
             case cc.KEY.a:
+                this.spr.setScaleX(-1)
+                this.spr.animationManager.runAnimationsForSequenceNamed("gaa")
                 this.accel.x = -600;
                 this.brake = false;
                 break;
+            case cc.KEY.s:
+                this.spr.animationManager.runAnimationsForSequenceNamed("dukk")
+                break;
             case cc.KEY.space:
+                this.spr.animationManager.runAnimationsForSequenceNamed("jump")
                 this.jump = true;
                 break;
                 
@@ -37,16 +46,30 @@ var Player = cc.Sprite.extend({
         switch(key) {
             case cc.KEY.space:
                 this.jump = false;
+                this.jumpTime = 0;
+           this.spr.animationManager.runAnimationsForSequenceNamed("stand")
                 break;
             case cc.KEY.d:
                 this.accel.x = 0;
+           this.spr.animationManager.runAnimationsForSequenceNamed("stand")
                 this.brake = true;
                 break;
             case cc.KEY.a:
                 this.accel.x = 0;
+           this.spr.animationManager.runAnimationsForSequenceNamed("stand")
                 this.brake = true;
                 break;
+            case cc.KEY.s:
+                this.spr.animationManager.runAnimationsForSequenceNamed("stand")
+                break;
         }
+    },
+    
+    update:function(dt){
+            if(this.jumpTime > 0){
+                this.speed.y = 400;
+                this.jumpTime -= dt;
+            }
     },
     
     onColide : function(other){
@@ -63,7 +86,8 @@ var Player = cc.Sprite.extend({
         
         }
         if(this.jump){
-            this.speed.y = 1200;
+            //this.speed.y = 2200;
+            this.jumpTime = 0.5;
             this.jump = false;
             return true;
         }

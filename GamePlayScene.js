@@ -13,7 +13,7 @@ var CCBGamePlayScene = cc.Scene.extend({
         
         this.maplist = {};
         this.loadMap("LevelOne.tmx");
-    
+        this.loadMap("level2.tmx")
         
         this.gpLayer = cc.Layer.create();
         this.addChild(this.gpLayer, 0, "gp")
@@ -34,8 +34,7 @@ var CCBGamePlayScene = cc.Scene.extend({
         this.addChild(cc.LayerColor.create(cc.c4b(180,100,180,255)), -2, "background");
         this.setPosition(cc.p(0,0));  
         this.scheduleUpdate();
-        var follow = cc.Follow.create(this.player, new cc.Rect(0,0, this.currentmap._contentSize.width, this.currentmap._contentSize.height))
-        this.gpLayer.runAction(follow)
+
         
     },
     
@@ -57,12 +56,14 @@ var CCBGamePlayScene = cc.Scene.extend({
         
         this.gpLayer.addChild(map, 0, "map")
         this.currentmap = map;
+        var follow = cc.Follow.create(this.player, new cc.Rect(0,0, this.currentmap._contentSize.width, this.currentmap._contentSize.height))
+        this.gpLayer.runAction(follow)
         
     },
     
     onKeyDown : function(key) {
         if(key == cc.KEY.t){
-            this.changeMap(this.currentmap);
+            this.changeMap(this.maplist["level2.tmx"]);
         }
         this.player.onKeyDown(key);
     },
@@ -74,6 +75,9 @@ var CCBGamePlayScene = cc.Scene.extend({
     update:function(dt) {
         for(var i = 0; i < this.dynamic_body_list.length; i++){
             var b = this.dynamic_body_list[i];
+            if("update" in b){
+                b.update(dt);
+            }
             var redo = true;
             var it = 10;
             this.handle_gravity(dt, b, b.accel || {x:0, y:0});

@@ -7,6 +7,7 @@ var ccb_resources = [
     {type:'ccbi', src:"røyk.ccbi"},
     {type:'ccbi', src:"Flamme.ccbi"},
     {type:"tmx", src:"awesome-map.tmx"},
+    {type:"tmx", src:"level2.tmx"},
     {type:"tmx", src:"LevelOne.tmx"},
     {type:"image", src:"ccbResources/Tiles.png"},
     {type:"image", src:"ccbResources/Alarmlys00.png"},
