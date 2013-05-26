@@ -6,8 +6,13 @@ var cocos2dApp = cc.Application.extend({
         this.startScene = scene;
         cc.COCOS2D_DEBUG = this.config['COCOS2D_DEBUG'];
         cc.initDebugSetting();
-        cc.setup(this.config['tag']);
-        cc.AppController.shareAppController().didFinishLaunchingWithOptions();       
+        cc.setup(this.config['tag'])
+        cc.AppController.shareAppController().didFinishLaunchingWithOptions();  
+       // cc.Loader.getInstance().onload = function () {
+    //        cc.AppController.shareAppController().didFinishLaunchingWithOptions();
+      //  };
+        //cc.Loader.getInstance().preload(ccb_resources)
+
     },
     applicationDidFinishLaunching:function () {
         // initialize director
@@ -22,10 +27,9 @@ var cocos2dApp = cc.Application.extend({
         // set FPS. the default value is 1.0/60 if you don't call this
         director.setAnimationInterval(1.0 / this.config['frameRate']);
 
-        //load resources
         cc.Loader.preload(ccb_resources, function () {
             cc.Director.getInstance().runWithScene(new this.startScene());
-        }, this);
+        }, this);        //load resources
 
         return true;
     }

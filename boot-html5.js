@@ -8,14 +8,16 @@
         loadExtension:true,
         frameRate:60,
         tag:'gameCanvas', //the dom element to run cocos2d on
-        //engineDir:'../../../../cocos2d/',
+        //engineDir:'coco2d/cocos2d/',
         SingleEngineFile:'cocos2d-html5.min.js',
         appFiles:[
           'MainScene.js',
           "GamePlayScene.js",
           "MapClass.js",
+          "Enemy.js",
           "Platform.js",
           "Helpers.js",
+          "Trigger.js",
           "Player.js",
             'resources-html5.js',
             'boot2-html5.js'

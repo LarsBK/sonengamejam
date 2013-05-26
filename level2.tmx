@@ -19,11 +19,11 @@
  <objectgroup name="item" width="50" height="100">
   <object name="sverd" x="749" y="267"/>
  </objectgroup>
- <objectgroup name="Zones" width="50" height="100">
+ <objectgroup name="objects" width="50" height="100">
   <object name="dor" x="768" y="23" width="27" height="69">
    <properties>
-    <property name="action" value="teleport"/>
-    <property name="direction" value="east"/>
+    <property name="type" value="teleport"/>
+    <property name="direction" value="west"/>
    </properties>
   </object>
   <object x="181" y="655" width="1"/>
