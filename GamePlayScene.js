@@ -1,4 +1,3 @@
-
 var CCBGamePlayScene = cc.Scene.extend({
     static_body_list: [],
     dynamic_body_list: [],
@@ -60,6 +59,13 @@ var CCBGamePlayScene = cc.Scene.extend({
         this.gpLayer.runAction(follow)
         
     },
+    
+    trigger:function(t){
+        console.log(t)
+        if(t.action=="die"){
+            
+        }
+    }
     
     onKeyDown : function(key) {
         if(key == cc.KEY.t){
