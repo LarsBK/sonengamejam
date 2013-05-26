@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="32" height="64" tilewidth="16" tileheight="16">
+ <tileset firstgid="1" name="Tiles" tilewidth="16" tileheight="16">
+  <image source="ccbResources/Tiles.png" width="800" height="600"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="32" height="64">
+  <data encoding="base64" compression="zlib">
+   eJzt17EJgEAURMFvazYihlZ0GImJdXqgqShyp4iz8OKJN0VEu3e2tnBp763x+Wf+crFafs3x+Xw+n8/n849X+vv4P3w+n8/n8/nbxtxcoOmm/+T4fD6fz/+r/+a+4PdNxFCpLrcCyg1wfg==
+  </data>
+ </layer>
+ <objectgroup name="objects" width="32" height="64">
+  <object type="teleport" x="-2" y="1006" width="132" height="16">
+   <properties>
+    <property name="direction" value="down"/>
+   </properties>
+  </object>
+  <object type="platform" x="448" y="718" width="7" height="227"/>
+  <object type="platform" x="83" y="439" width="5" height="214"/>
+  <object type="platform" x="351" y="73" width="7" height="320"/>
+  <object type="teleport" x="50" y="3" width="128" height="11">
+   <properties>
+    <property name="direction" value="up"/>
+   </properties>
+  </object>
+  <object type="slime" x="71" y="708" width="296" height="10"/>
+ </objectgroup>
+</map>

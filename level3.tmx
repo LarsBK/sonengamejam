@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="50" height="100" tilewidth="16" tileheight="16">
+ <tileset firstgid="1" name="Tiles" tilewidth="16" tileheight="16">
+  <image source="ccbResources/Tiles.png" width="800" height="600"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="50" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztmVtqAzEMRWdPWWwpLX2EtutsBmpwjR+SR7KvbB3QTyBBJ1djO879OI678Xp71NdhH/fAwj3m8xOVRY+4/4A1j7T/gKZH7nuT+MwcGh653qV8RnuUXr/qMsKD0ucVl9r7Wh6c3qj9zfAI72+VVD+tHkrMWHc13IOH9PrYgpolta/Z+6DUzKYeGnvXCGbnIUXNI83l6jqlCXfdRUVqrqT2ll5m7h+S3js855ZA9uDMG7IHB/fAwj2wQPWgnOet3yfmcI9+/HxVxj3+ozErHHbJY/b3TGWXPKywmgfizHMo3YtaIzdXFl1Kz8cqHieWcuHsg8hw7qmR6fmfExHqPoh8tjrh7OeWPZ4f9SlcGqx2vhoNJed3xud5HlhY8ohnMZ05Sx413AMLVI9bVBRQPbi4Rz/UMxsHzwML98BiJ4+XEY1kqK1rPefEV+kGFXAPLGKP0jx+KPdwyxSXndYrC7gHFjUPjTtRblHv4lbL4+mvrGIljzDjpTmz4tFiVY8zP859PQqj8tBeeykeFjJa9fmQYEZ+6e8P9Pkp0ZsHmrM/H1iUPEpndqRZilk9D2us5PG9SP0Cc9l5XA==
+  </data>
+ </layer>
+</map>
