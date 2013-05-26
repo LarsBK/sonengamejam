@@ -5,23 +5,25 @@ var CCBGamePlayScene = cc.Scene.extend({
     ctor:function() {
         this._super();
         var node = cc.BuilderReader.load("gameplayscene.ccbi");
+        this.addChild(node, 1, "hud");
         
         var p = new Player();
         p.setPosition(500,350);
         this.player = p;
         
-        this.maplist = {};
-        this.loadMap("LevelOne.tmx");
-        this.loadMap("level2.tmx")
+        //var maplist = ["LevelOne.tmx", "level2.tmx"];
+        this.rooms = createLayout("LevelOne.tmx", "level2.tmx", []);
+        //this.loadMap("LevelOne.tmx");
+        //this.loadMap("level2.tmx")
         
         this.gpLayer = cc.Layer.create();
         this.addChild(this.gpLayer, 0, "gp")
         this.gpLayer.addChild(this.player);
-        this.changeMap(this.maplist["LevelOne.tmx"])
+        this.changeMap(this.rooms[0])
         
-        var plat = new Platform("ccbResources/metalplatform.png", {x: 60, y: 200}, {x: 300, y: 200});
-        this.static_body_list.push(plat);
-        this.currentmap.addChild(plat);
+        //var plat = new Platform("ccbResources/metalplatform.png", {x: 0, y: 20}, {x: 0, y: 300});
+        //this.static_body_list.push(plat);
+        //this.currentmap.addChild(plat);
         
         //this.gpLayer.addChild( cc.BuilderReader.load("Alarmlys.ccbi"))
         
@@ -29,19 +31,16 @@ var CCBGamePlayScene = cc.Scene.extend({
         node.onKeyDown = function(key) {this.getParent().onKeyDown(key);};
         node.onKeyUp = function(key) { this.getParent().onKeyUp(key);};
         
-        this.addChild(node, 1, "hud");
-        this.addChild(cc.LayerColor.create(cc.c4b(180,100,180,255)), -2, "background");
+        //this.addChild(cc.LayerColor.create(cc.c4b(180,100,180,255)), -2, "background");
         this.setPosition(cc.p(0,0));  
         this.scheduleUpdate();
-
         
-    },
-    
-    loadMap:function(filename)
-    {
-        var mapclass = new MapClass(filename);
-        this.maplist[filename] = mapclass;
-
+        this.lava = new Lava();
+        this.lava.setPosition(0,-100)
+        this.gpLayer.addChild(this.lava, 5, "lava")
+        this.lava.changeWidth(this.currentmap.getContentSize().width)
+        this.static_body_list.push(this.lava)
+        
     },
     
     changeMap:function(map){
@@ -57,15 +56,29 @@ var CCBGamePlayScene = cc.Scene.extend({
         this.currentmap = map;
         var follow = cc.Follow.create(this.player, new cc.Rect(0,0, this.currentmap._contentSize.width, this.currentmap._contentSize.height))
         this.gpLayer.runAction(follow)
+        this.getChildByTag("hud").roomLabel = "Floor: " + map.location.y + " Room: " + map.location.x;
         
     },
     
-    trigger:function(t){
+    teleportTo:function(from, dir){
+        var m = this.currentmap.exits[dir];
+        var y = from.getPosition().y - m.to.getPosition().y;
+        this.lava.setPosition(0, this.lava.getPosition().y + y)
+        
+        this.changeMap(m.map)
+    },
+    
+    trigger:function(t, trigger){
         console.log(t)
         if(t.action=="die"){
+            console.log("game over")
+            cc.Director.getInstance().popScene()
             
         }
-    }
+        if(t.action=="teleport"){
+            this.teleportTo(trigger, t.direction);
+        }
+    },
     
     onKeyDown : function(key) {
         if(key == cc.KEY.t){
@@ -78,6 +91,21 @@ var CCBGamePlayScene = cc.Scene.extend({
         this.player.onKeyUp(key);        
     },
     
+    removeBody:function(b){
+        for(var i = 0; i < this.dynamic_body_list.length; i++){
+            if(b == this.dynamic_body_list[i]){
+                this.dynamic_body_list.splice(i,1);
+                return;
+            }
+        } 
+        for(var i = 0; i < this.static_body_list.length; i++){
+            if(b == this.static_body_list[i]){
+                this.static_body_list.splice(i,1);
+                return;
+            }
+        }
+    },
+    
     update:function(dt) {
         for(var i = 0; i < this.dynamic_body_list.length; i++){
             var b = this.dynamic_body_list[i];
@@ -85,10 +113,14 @@ var CCBGamePlayScene = cc.Scene.extend({
                 b.update(dt);
             }
             var redo = true;
-            var it = 10;
+            var it = 0;
             this.handle_gravity(dt, b, b.accel || {x:0, y:0});
             this.handle_air_resistance(dt, b);
-            while(redo &&  it-- > 0){
+            while(redo &&  it++ < 100){
+                if(it > 5){
+                    b.speed.y = (it-5)*10;
+                    console.log("EJECT!")
+                }
                 redo = false;
                 
                 var nextpos = {x:b.getPosition().x + b.speed.x*dt, y: b.getPosition().y + b.speed.y*dt};
@@ -98,8 +130,15 @@ var CCBGamePlayScene = cc.Scene.extend({
             
                 for(var j = 0; j < this.static_body_list.length; j++){
                     //console.log(this.static_body_list[j])
-                    var re = this.static_body_list[j]._rect;
-                    re.origin = this.static_body_list[j].getPosition();
+                    var s = this.static_body_list[j]
+                    var re;
+                    if("_rect" in this.static_body_list[j]) {
+                        re = new cc.Rect(this.static_body_list[j].getPosition().x ,this.static_body_list[j].getPosition().y,
+                        this.static_body_list[j]._rect.width, this.static_body_list[j]._rect.height);
+                    } else {
+                        re = new cc.Rect(this.static_body_list[j].getPosition().x, this.static_body_list[j].getPosition().y,
+                        this.static_body_list[j].getContentSize().width, this.static_body_list[j].getContentSize().height);
+                    }
                     //console.log(re)
                     if(cc.rectIntersectsRect(nextrect, re)){
                         if("onColide" in b){

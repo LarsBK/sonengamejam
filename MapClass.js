@@ -5,6 +5,7 @@ var MapClass = cc.TMXTiledMap.extend({
         this.initWithTMXFile(file);
         this.static_bodies = [];
         this.dynamic_bodies = [];
+        this.exits = {};
         //this.setPosition(cc.p(0,0))
         
         for(var x = 0; x < this.getMapSize().width; x++){
@@ -20,16 +21,19 @@ var MapClass = cc.TMXTiledMap.extend({
         var triggers = this.getObjectGroup("objects");
         if(triggers) {
             var trigger = triggers.getObjects();
-            for(var i = 0; i < triggers.length; i++){
-                var o = triggers[i]
-                if(triggers[i].type == "trigger"){
-                var e = trigger[i];
-                console.log(e)
-                var t = new Trigger(e)
-                this.static_bodies.push(t)
-                }else if(triggers[i].type== "platform"){
-                  //  var p = new Platform(o.sprite,
-                   //     {x:o.
+            for(var i = 0; i < trigger.length; i++){
+                var o = trigger[i]
+                console.log(o)
+                if(o.type == "teleport"){
+                    this.exits[o.dir] = {};
+                    var t = new Trigger(o)
+                    this.static_bodies.push(t)
+                    this.addChild(t)
+                }else if(o.type== "platform"){
+                  var p = new Platform("ccbResources/" + o.sprite,{x:o.x, y:o.y}, {x:o.x+o.width, y:o.y+o.height});
+                  this.static_bodies.push(t);
+                  this.addChild(p);
+                    //{x:o.
                 }
             }
         }

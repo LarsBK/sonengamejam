@@ -14,8 +14,10 @@
           'MainScene.js',
           "GamePlayScene.js",
           "MapClass.js",
+          "Enemy.js",
           "Platform.js",
           "Helpers.js",
+          "Trigger.js",
           "Player.js",
             'resources-html5.js',
             'boot2-html5.js'

@@ -10,6 +10,7 @@ var Platform = cc.Sprite.extend({
         this.setPosition(this.position);
         this.scheduleUpdate();
         this.onColide = static_collide_func;
+        console.log(this)
     },
     
     ________type: "PLATFORM!",
