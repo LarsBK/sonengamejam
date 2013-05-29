@@ -10,7 +10,7 @@ var Turret = cc.Sprite.extend({
     },
     fire:function(){
         var b = new Missile(0*this.getScaleX());
-        b.setPosition(0,this.getContentSize().height+200);
+        b.setPosition(0,this.getContentSize().height+10);
         this.addChild(b);
         this.getParent().getParent().getParent().dynamic_body_list.push(b);
     }
@@ -25,8 +25,13 @@ var Missile = cc.Sprite.extend({
        }
        this.speed = {x:spd, y:0};
        this.accel = {x:0, y:0};
-       //this.scene = this.getParent().getParent().getParent().getParent();
        this.onColide = killOnColide;
+   },
+   onEnter:function(){
+       this.scene = this.getParent().getParent().getParent().getParent();
+   },
+   onColideSpecial:function(other){
+        this.removeFromParent();
    }
 
 });
@@ -37,9 +42,11 @@ var Slime = cc.Sprite.extend({
         this.initWithFile("ccbResources/StorStein.png");
         this.update = Platform.update;
         this.scheduleUpdate();
-        //this.scene = this.getParent().getParent().getParent();
        this.onColide = killOnColide;
-    }
+    },
+   onEnter:function(){
+       this.scene = this.getParent().getParent().getParent();
+   }
 })
 
 var killOnColide = function(other){
@@ -47,7 +54,11 @@ var killOnColide = function(other){
         this.scene.trigger( {action:"die"});
         var f = new cc.BuilderReader.load("eksplosjon.ccbi");
         f.animationManager.runAnimationsForSequenceNamed("Default Timeline")
-        replaceNode(this, f)
-        this.getParent().removeChild(this);
-  }  
+        replaceNode(other, f);
+
+  }
+  if(this.onColideSpecial){
+            this.onColideSpecial(other);
+        }
+ 
 };

@@ -2,7 +2,7 @@ var Trigger = cc.Node.extend({
    ctor:function(e) {
        this._super();
        this.t =e
-       this.setPosition(e.x, e.y)
+       this.setPosition(e.x , e.y)
        this._rect = new cc.Rect(0,0,e.width, e.height);
    },
    onColide:function(other){

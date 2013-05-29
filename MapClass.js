@@ -5,6 +5,7 @@ var MapWrapper = cc.Layer.extend({
         this.exits = {};
         this.dynamic_bodies = [];
         this.static_bodies = [];
+        this.loaded = false;
         this.setPosition(0,0)
         
         if(connected){
@@ -51,6 +52,9 @@ var MapWrapper = cc.Layer.extend({
 
     
     load:function(){
+        //if(this.loaded){
+        //    return;
+        //}
         this.map.removeFromParent();
         for(var e in this.map.exits){
             if(! (e in this.exits)){
@@ -59,6 +63,7 @@ var MapWrapper = cc.Layer.extend({
         }
         this.addChild(this.map, -1)
         this.map.load();
+        this.loaded = true;
         console.log("load done")
     }
 });
@@ -113,23 +118,24 @@ var MapClass = cc.TMXTiledMap.extend({
                         this.getParent().static_bodies.push(t)
                         this.getParent().addChild(t)
                         break;
-                    case "platform:":
-                        var p = new Platform("ccbResources/" + o.sprite,{x:o.x, y:o.y}, {x:o.x+o.width, y:o.y+o.height});
+                    case "platform":
+                        var p = new Platform("ccbResources/metalplatform.png",{x:o.x, y:o.y}, {x:o.x+o.width, y:o.y+o.height});
                         this.getParent().static_bodies.push(t);
                         this.getParent().addChild(p);
                         break;
-                  
-                /*else if(o.type == "turret"){
-                    var t = new Turret(o);
-                    this.addChild(t);
-                    this.static_bodies.push(t)
-                } else if(o.type == "slime"){
-                    var s = new Slime(t);
-                    this.addChild(t);
-                    this.static_bodies.push(t);
-                }*/
+                    /*
+                    case "turret":
+                        var t = new Turret(o);
+                        this.getParent().addChild(t);
+                        this.getParent().static_bodies.push(t)
+                        break;*/
+                    case "slime":
+                        var s = new Slime(t);
+                        this.getParent().addChild(s);
+                        this.getParent().static_bodies.push(t);
+                        break;
+                }
             }
-        }
         
         //var obG = this.tiledMap.getObjectGroup()
     }

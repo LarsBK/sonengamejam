@@ -12,7 +12,9 @@ var TitleScreen = cc.Scene.extend({
         //var trans = cc.TransitionSlideInL.create(2, new CCBGamePlayScene());
         l.onKeyDown = function(key) {
             //l.setKeyboardEnabled(false);
+            if(key == cc.KEY.escape){
             cc.Director.getInstance().pushScene(new CCBGamePlayScene());
+            }
             //cc.Director.getInstance().replaceScene(trans)
         };
         console.log("Titlescreen done")

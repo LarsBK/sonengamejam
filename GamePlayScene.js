@@ -32,7 +32,7 @@ var CCBGamePlayScene = cc.Scene.extend({
     
     addPlayer:function(){
         var p = new Player();
-        p.setPosition(60,80);
+        p.setPosition(150,80);
         this.player = p;
     },
     
@@ -67,7 +67,7 @@ var CCBGamePlayScene = cc.Scene.extend({
         //Map
         console.log("changing to map " + this.currentmap.map.file)
         this.static_body_list = this.currentmap.static_bodies;
-        this.dynamic_body_list = [];
+        this.dynamic_body_list = [];//this.currentmap.dynamic_bodies;
         this.dynamic_body_list.push(this.player);
         this.gpLayer.addChild(this.currentmap, -2, "map")
         this.currentmap.setPosition(0,0);
@@ -91,8 +91,8 @@ var CCBGamePlayScene = cc.Scene.extend({
         var exit = m.map.exits[odir];
         
         var y =  exit.getPosition().y - from.getPosition().y;
-        var px = exit.getPosition().x;
-        var py = exit.getPosition().y//; - m.to.trigger._rect.height/2;
+        var px = exit.getPosition().x + exit._rect.width/2;
+        var py = exit.getPosition().y + exit._rect.height/2;
         
         switch(dir)
         {
@@ -103,13 +103,13 @@ var CCBGamePlayScene = cc.Scene.extend({
                 px -= exit._rect.width + this.player._rect.width;
                 break;
             case "up":
-                py += exit._rect.height;
+                py += exit._rect.height + this.player._rect.height;
                 //y -= this.currentmap.map.getContentSize().height;
                 this.player.speed.y += 100;
                 break;
             case "down":
                 //y += this.currentmap.map.getContentSize().height;
-                py -= exit._rect.height;
+                py -= exit._rect.height + this.player._rect.height;
                 break;
             default:
                 ENOSUCHCASEEXCEPTION;
@@ -119,12 +119,13 @@ var CCBGamePlayScene = cc.Scene.extend({
         this.player.setPosition(px,py);
             //m.to.trigger.getPosition().y);
         //this.player.setPosition(100,100);
+        var oldHeight = this.currentmap.map.getContentSize().height;
         this.changeMap(m)
         
         if(this.lava){
             y += this.lava.getContentSize().height;
         } else {
-            y = -100;
+            y = -oldHeight;
         }
         
         this.lava = new Lava();
@@ -142,6 +143,8 @@ var CCBGamePlayScene = cc.Scene.extend({
         console.log(t)
         if(t.action=="die"){
             console.log("game over")
+            var fade = cc.ScaleBy.create(6, 0.01, 0.01);
+            this.runAction(fade);
             this.scheduleOnce(function() {cc.Director.getInstance().popScene()}, 6);
         }
         if(t.action=="teleport"){
@@ -156,9 +159,18 @@ var CCBGamePlayScene = cc.Scene.extend({
     
     onKeyDown : function(key) {
         if(key == cc.KEY.t){
-            this.changeMap(this.maplist["level2.tmx"]);
+            //this.changeMap(this.maplist["level2.tmx"]);
+        } else if(key == cc.KEY.escape){
+            this.trigger({action:"die"});
+        } else if(key == cc.KEY[1]){
+            var zoom = cc.ScaleBy.create(1, 0.9, 0.9);
+            this.runAction(zoom);
+        } else if(key == cc.KEY[2]){
+            var zoom = cc.ScaleBy.create(1, 1.1, 1.1);
+            this.runAction(zoom);
+        } else{
+            this.player.onKeyDown(key);
         }
-        this.player.onKeyDown(key);
     },
     
     onKeyUp : function(key) {
@@ -181,6 +193,9 @@ var CCBGamePlayScene = cc.Scene.extend({
     },
     
     update:function(dt) {
+        if(this.player.getPosition().y < -this.currentmap.map.getContentSize().height){
+            this.trigger({action:"die"});
+        }
         for(var i = 0; i < this.dynamic_body_list.length; i++){
             var b = this.dynamic_body_list[i];
             if("update" in b){

@@ -5,7 +5,8 @@
         box2d:false,
         chipmunk:true,
         showFPS:false,
-        loadExtension:true,
+        loadExtension:false,
+        renderMode:2,
         frameRate:60,
         tag:'gameCanvas', //the dom element to run cocos2d on
         //engineDir:'coco2d/cocos2d/',
