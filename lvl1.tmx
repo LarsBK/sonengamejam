@@ -5,7 +5,7 @@
  </tileset>
  <layer name="Tile Layer 1" width="64" height="32">
   <data encoding="base64" compression="zlib">
-   eJztmN0OgjAMhbtEUVHUl/SB/I+X3vCSmuhGXAKDAWXrNmQnORcrZO23ksHIAWDOzP2B/mIW8tlwXhSDKLxFKWIezL2kYmCN/010L6k4+8t3DT4VynPoS5F/2iLmF9Pv6dMMF2FhZfZg16Bj/19wrz05ay+74sHqmCAxmdtQTnL/+HXLMBV+rzX4zB35I3/k14anyu+0Bp+5B/DvG0yhUPldKfI7UPz+C67/ck+ZAf7MtMImC5BfiHJfrYmAH3Nu1p1zx8yfQP2MrrPPPaYQIb94DnYaZxAuv2lvJP8Smr+XhLeGOayJsP9l/isP3Ng4+c/In2z/1P8jv37hPiHWQPKLd/hG4xS6+Q8lP1h1bEttWKJP6vtKjTWNJVsfi7W4cz8VqzHbYxn7AjqYKJY=
+   eJztmG8PgiAQxo+trCzLL9kH6v962Ru/ZG0FLjYkURGOw/TZnhdcjrsf5xAqAGDO3P2G7mIe8vlwURZjUXiDUot5bJ5FFQNv/C+kZ1HF2Z/UNVAqlveQShP/uIXML6bP8dP0F2JhKnu0a9Cy/y+410TOmsuuuLdaJkhc5nZUkNxfftMyjIWftAbK3BN/1Py5YhRFzo8uA78Mj5U/aA2UuXvw5zXGUKz8oTTxB9B0/ouu/3JPmYH9nWllmyxCfiHUM48uBH6be7Ppnjtk/gR+7+gmU+4xpRD5xXuwMziDePldeyP5l1B/XhLeOubwJsT+q/wXHriyYfKfLP9k+6f+H/jvZ+6jxRpIfvEN3xicQjv/XvGdVce+1IQl+qR/r/RY3ViydbFYixv3Q7Me8z2WsQ98xSjG
   </data>
  </layer>
  <objectgroup name="objects" width="64" height="32">
@@ -41,7 +41,7 @@
  </objectgroup>
  <layer name="cosmetic" width="64" height="32">
   <data encoding="base64" compression="zlib">
-   eJzt1jENACAQA8DHAe4hOAJVMGKA/MBd0r3dGgEAAAC56hVoJaKX7BZ55tm+Pt4PAPCL4fMBD2zwyQOS
+   eJzt1kENACAMBMHWvwAIjkAVmCAlYUbB7e8iAAAAAN7RMqJn9Yo687Svj/sBAH4xfD7ggg2unANi
   </data>
  </layer>
 </map>
