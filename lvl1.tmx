@@ -5,11 +5,11 @@
  </tileset>
  <layer name="Tile Layer 1" width="64" height="32">
   <data encoding="base64" compression="zlib">
-   eJzt1cEKgkAUheFzoSwqq5fsgUorWrbxObuzkBIaGpwGynMO/Avd6KeCHYC5cda5HQbeGeSXn3fyyy8/7+SXX37eyS+//LyTX375eSe//Mz+sEz/wlsnVuddqswy/RWen9GnqrxLldmX/OE72EWqMX3/0ttH2oLLf/YTF/svfzPyOUzh/R+91juNeAa9f+ZtIq1Qxn946WbD49SF+0r9f72rt6V2/6Gu3gOt2COh
+   eJztmE0OwiAQhYdEq1arXtID+R+XbnpJTRRUkhYLLYVh0PKSt2BKmPmAtIUSAMbM3Q/oLuYhnw+Xr2IsCjcotxjHpi+qGHjjvyP1RRVnv1HXQKlY9iGVEv+whcwvhl/jp+kvxMKq7NHOQcv7f8I9J3JhLrvm3moZIHMZ21FBcn/4ddMwFH7SGihzJ/7En/i14aHyB62BMnfiT/yJP/3/Udag0Qjsz0wz2yQR8wcTAr/Nudl0zg0iBP4Mvs/oOpPvMUR+sQ9WGhcQL7/r2kj+Kbzvvpq8dMzhTYjrX+U/8sCJ/Sb/3vKS7Z/Wf8ufH7h3FnMg+cU3fKFxDu38m4ovrN72JROWWCf1e6XGmtqSrYvFXJy5r4rVmO+2jD0BOi8n9g==
   </data>
  </layer>
  <objectgroup name="objects" width="64" height="32">
-  <object type="turret" x="806" y="474">
+  <object type="turret" x="679" y="463">
    <properties>
     <property name="direction" value="east"/>
     <property name="interval" value="1"/>
@@ -21,5 +21,27 @@
     <property name="direction" value="east"/>
    </properties>
   </object>
+  <object type="platform" x="907" y="100" width="26" height="319"/>
+  <object type="teleport" x="-2" y="63" width="16" height="81">
+   <properties>
+    <property name="direction" value="west"/>
+   </properties>
+  </object>
+  <object type="teleport" x="18" y="497" width="92" height="13">
+   <properties>
+    <property name="direction" value="down"/>
+   </properties>
+  </object>
+  <object type="slime" x="634" y="333" width="189" height="9"/>
+  <object type="teleport" x="305" y="1" width="156" height="24">
+   <properties>
+    <property name="direction" value="up"/>
+   </properties>
+  </object>
  </objectgroup>
+ <layer name="cosmetic" width="64" height="32">
+  <data encoding="base64" compression="zlib">
+   eJzt1rENwCAMBECzQbYPYqNkqoQiXUqQkbiT3Pu/sBwBAAAAsI6zRNSSvUWe681+J+c/fgZgBDdFB93u+eHTNv55gXkerwUEAg==
+  </data>
+ </layer>
 </map>
