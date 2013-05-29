@@ -1,20 +1,21 @@
 (function () {
     var d = document;
     var c = {
-        COCOS2D_DEBUG:2, //0 to turn debug off, 1 for basic debug, and 2 for full debug
+        COCOS2D_DEBUG:0, //0 to turn debug off, 1 for basic debug, and 2 for full debug
         box2d:false,
         chipmunk:true,
-        showFPS:true,
+        showFPS:false,
         loadExtension:true,
         frameRate:60,
         tag:'gameCanvas', //the dom element to run cocos2d on
         //engineDir:'coco2d/cocos2d/',
-        SingleEngineFile:'cocos2d-html5.min.js',
+        SingleEngineFile:'Cocos2d-html5-v2.1.3.min.js',
         appFiles:[
           'MainScene.js',
           "GamePlayScene.js",
           "MapClass.js",
           "Enemy.js",
+          "TitleScreen.js",
           "Platform.js",
           "Helpers.js",
           "Trigger.js",

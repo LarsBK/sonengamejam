@@ -14,9 +14,21 @@
     <property name="direction" value="down"/>
    </properties>
   </object>
-  <object type="platform" x="448" y="718" width="7" height="227"/>
-  <object type="platform" x="83" y="439" width="5" height="214"/>
-  <object type="platform" x="351" y="73" width="7" height="320"/>
+  <object type="platform" x="448" y="718" width="7" height="227">
+    <properties>
+        <property name="sprite" value="metalplatform.png"/>
+    </properties>
+  </object>
+  <object type="platform" x="83" y="439" width="5" height="214">
+  <properties>
+        <property name="sprite" value="metalplatform.png"/>
+    </properties>
+  </object>
+  <object type="platform" x="351" y="73" width="7" height="320">
+      <properties>
+        <property name="sprite" value="metalplatform.png"/>
+    </properties>
+  </object>
   <object type="teleport" x="50" y="3" width="128" height="11">
    <properties>
     <property name="direction" value="up"/>

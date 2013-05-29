@@ -14,7 +14,11 @@
     <property name="direction" value="down"/>
    </properties>
   </object>
-  <object type="platform" x="199" y="138" width="9" height="223"/>
+  <object type="platform" x="199" y="138" width="9" height="223">
+      <properties>
+        <property name="sprite" value="metalplatform.png"/>
+    </properties>
+  </object>
   <object type="teleport" x="290" y="2" width="123" height="13">
    <properties>
     <property name="direction" value="up"/>

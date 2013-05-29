@@ -1,39 +1,33 @@
+var changeMap = function(t){
+    var gp = cc.Director.getInstance().getRunningScene();
+    var m = new MapWrapper(gp.maplist[t]);
+    m.load();
+    gp.changeMap(m);};
+
 var CCBGamePlayScene = cc.Scene.extend({
     static_body_list: [],
     dynamic_body_list: [],
-    
+    maplist:[],
+    loadedMaps:[],
+    currentmap:null,
+
     ctor:function() {
         this._super();
-
-        
-
-        var maplist = [];//"map03.tmx", "map04.tmx"];
-        
         for(var i = 1; i < 16; i++){
-            maplist.push("lvl" + i + ".tmx")
+            this.maplist.push("lvl" + i + ".tmx")
         }
-        
-        this.rooms = createLayout("map02.tmx", "map01.tmx", maplist); //maplist);
-        //this.loadMap("LevelOne.tmx");
-        //this.loadMap("level2.tmx")
-        this.currentmap = null;
-        
-        
-        this.changeMap(this.rooms[0])
-        
-        //var plat = new Platform("ccbResources/metalplatform.png", {x: 0, y: 20}, {x: 0, y: 300});
-        //this.static_body_list.push(plat);
-        //this.currentmap.addChild(plat);
-        
-        //this.gpLayer.addChild( cc.BuilderReader.load("Alarmlys.ccbi"))
-        
-
-        
+        this.maplist.push("LevelOne.tmx")
+        this.maplist.push("level2.tmx")
+        for(var i = 1; i < 5; i++){
+            this.maplist.push("map0" + i + ".tmx");
+        }
+        for(var i = 0; i < this.maplist.length; i++){
+            this.loadedMaps.push(new MapClass(this.maplist[i]));
+        }
+        var m = new MapWrapper(this.loadedMaps);
+        m.load();
+        this.changeMap(m);
         this.scheduleUpdate();
-        
-
-        //this.static_body_list.push(this.lava)
-        
     },
     
     addPlayer:function(){
@@ -56,7 +50,6 @@ var CCBGamePlayScene = cc.Scene.extend({
         //Gameplay layer
         this.gpLayer = cc.Layer.create();
         
-        console.log("IMPORTANT:")
         console.log(this.gpLayer)
         
         this.addChild(this.gpLayer, 0, "gp")
@@ -65,69 +58,82 @@ var CCBGamePlayScene = cc.Scene.extend({
             //this.gpLayer.addChild(this.player, -10);
         }
         
-        
-        this.gpLayer.addChild(this.player, -10, "Playa") 
-
-        console.log("changing to map " + map)
         this.currentmap = map;
-        this.static_body_list = map.static_bodies;
+        
+        
+        this.player.removeFromParent()
+        //this.gpLayer.setPosition(this.getContentSize().width,0);
+
+        //Map
+        console.log("changing to map " + this.currentmap.map.file)
+        this.static_body_list = this.currentmap.static_bodies;
         this.dynamic_body_list = [];
         this.dynamic_body_list.push(this.player);
-        
-        //Map
-        this.gpLayer.addChild(map, 0, "map")
+        this.gpLayer.addChild(this.currentmap, -2, "map")
+        this.currentmap.setPosition(0,0);
+        console.log("map:")
+        console.log(this.currentmap)
+        console.log("---")
+        this.gpLayer.addChild(this.player, 0, "Playa") 
         
         //Follow
-        var follow = cc.Follow.create(this.player, new cc.Rect(0,0, this.currentmap._contentSize.width, this.currentmap._contentSize.height))
+        var follow = cc.Follow.create(this.player, new cc.Rect(0,0, this.currentmap.map._contentSize.width, this.currentmap.map._contentSize.height))
         this.gpLayer.runAction(follow)
-        this.roomLabel = "Floor: " + map.location.y + " Room: " + map.location.x;
+        console.log("Floor: " + map.location.y + " Room: " + map.location.x);
         this.setPosition(cc.p(0,0));  
-        
     },
     
     teleportTo:function(from, dir){
         console.log("teleport")
         var m = this.currentmap.exits[dir];
-        var y = from.getPosition().y - m.to.trigger.getPosition().y;
-        //this.lava.setPosition(0, this.lava.getPosition().y + y)
+        m.load();
+        var odir = oppositeDir(dir);
+        var exit = m.map.exits[odir];
         
-        var px = m.to.trigger.getPosition().x;
-        var py = m.to.trigger.getPosition().y;
+        var y =  exit.getPosition().y - from.getPosition().y;
+        var px = exit.getPosition().x;
+        var py = exit.getPosition().y//; - m.to.trigger._rect.height/2;
         
         switch(dir)
         {
             case "east":
-                px += m.to.trigger.getContentSize().width + 10;
+                px += exit._rect.width + this.player._rect.width;
                 break;
             case "west":
-                px -= m.to.trigger.getContentSize().width + 10;
+                px -= exit._rect.width + this.player._rect.width;
                 break;
-            case "north":
-                this.player.speed = {x: this.player.speed.x, y: this.player.speed.y + 100 };
+            case "up":
+                py += exit._rect.height;
+                //y -= this.currentmap.map.getContentSize().height;
+                this.player.speed.y += 100;
                 break;
-            case "south":
+            case "down":
+                //y += this.currentmap.map.getContentSize().height;
+                py -= exit._rect.height;
                 break;
             default:
                 ENOSUCHCASEEXCEPTION;
         }
 
-        console.log("STart")
         console.log(this.player._position)
-        this.player.setPosition(px, this.player.getPosition().y);
+        this.player.setPosition(px,py);
             //m.to.trigger.getPosition().y);
         //this.player.setPosition(100,100);
-        console.log(this.player._position)
-        this.changeMap(m.map)
+        this.changeMap(m)
         
-        console.log(this.player._position)
-        this.player.visit();
-        console.log("END")
+        if(this.lava){
+            y += this.lava.getContentSize().height;
+        } else {
+            y = -100;
+        }
         
         this.lava = new Lava();
-        this.lava.setPosition(0,-100)
-        this.gpLayer.addChild(this.lava, 5, "lava")
+        this.lava.setPosition(0,0)
+        this.lava.changeHeight(y);
+        console.log("lava pos: " + y)
+        this.gpLayer.addChild(this.lava, 1, "lava")
         this.static_body_list.push(this.lava)
-        this.lava.changeWidth(this.currentmap.getContentSize().width)
+        this.lava.changeWidth(this.currentmap.map.getContentSize().width)
         this.isTeleporting = false;
     },
     
@@ -136,8 +142,7 @@ var CCBGamePlayScene = cc.Scene.extend({
         console.log(t)
         if(t.action=="die"){
             console.log("game over")
-            cc.Director.getInstance().popScene()
-            
+            this.scheduleOnce(function() {cc.Director.getInstance().popScene()}, 6);
         }
         if(t.action=="teleport"){
             if(this.isTeleporting)

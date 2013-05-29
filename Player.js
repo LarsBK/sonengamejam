@@ -81,11 +81,11 @@ var Player = cc.Sprite.extend({
                 this.speed.x = other.speed.x;
                 this.speed.y = other.speed.y;
             }else{
-                this.accel.x = -2*this.speed.x;
+                this.accel.x = -4*this.speed.x;
             }
         
         }
-        if(this.jump){
+        if(this.jump && other.getPosition().y < this.getPosition().y){
             //this.speed.y = 2200;
             this.jumpTime = 0.5;
             this.jump = false;

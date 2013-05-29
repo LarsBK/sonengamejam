@@ -11,7 +11,7 @@
  <objectgroup name="objects" width="64" height="32">
   <object type="platform" x="199" y="441" width="516">
    <properties>
-    <property name="direction" value="up"/>
+    <property name="sprite" value="metalplatform.png"/>
    </properties>
   </object>
   <object type="teleport" x="20" y="2" width="121" height="11">

@@ -30,6 +30,7 @@ var ccb_resources = [
     {type:"tmx", src:"lvl15.tmx"},
     {type:"tmx", src:"lvl16.tmx"},
     {type:"image", src:"ccbResources/Tiles.png"},
+    {type:"image", src:"Title.png"},
     {type:"image", src:"ccbResources/Alarmlys00.png"},
 {type:"image", src:"ccbResources/Alarmlys01.png"},
 {type:"image", src:"ccbResources/Alarmlys.png"},
@@ -100,5 +101,4 @@ var ccb_resources = [
 {type:"image", src:"ccbResources/Tiles.png"},
 {type:"image", src:"ccbResources/waterterraintest.png"},
 {type:"image", src:"ccbResources/W.png"}
-
 ];

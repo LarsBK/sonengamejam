@@ -14,6 +14,5 @@
     <property name="direction" value="up"/>
    </properties>
   </object>
-  <object x="3" y="368" width="12" height="123"/>
  </objectgroup>
 </map>

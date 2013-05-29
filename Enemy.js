@@ -26,8 +26,8 @@ var Missile = cc.Sprite.extend({
        this.speed = {x:spd, y:0};
        this.accel = {x:0, y:0};
        //this.scene = this.getParent().getParent().getParent().getParent();
-   },
-   onColide:killOnColide
+       this.onColide = killOnColide;
+   }
 
 });
 
@@ -38,8 +38,8 @@ var Slime = cc.Sprite.extend({
         this.update = Platform.update;
         this.scheduleUpdate();
         //this.scene = this.getParent().getParent().getParent();
-    },
-    onColide:killOnColide
+       this.onColide = killOnColide;
+    }
 })
 
 var killOnColide = function(other){

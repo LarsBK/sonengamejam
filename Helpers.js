@@ -21,6 +21,20 @@ var static_collide_func = function(other) {
     return false;
 };
 
+var oppositeDir = function(dir){
+    switch(dir) {
+        case "east":
+            return "west"
+        case "west":
+            return "east";
+        case "up":
+            return "down";
+        case "down":
+            return "up";
+    }
+    throw InvalidDirection;
+}
+
 var replaceNode = function(from, to){
     to.setPosition(from.getPosition());
     to.setScaleX( from._rect.width / to.getContentSize().width);

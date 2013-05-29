@@ -14,6 +14,10 @@
     <property name="direction" value="up"/>
    </properties>
   </object>
-  <object type="platform" x="148" y="94" width="334" height="5"/>
+  <object type="platform" x="148" y="94" width="334" height="5">
+      <properties>
+        <property name="sprite" value="metalplatform.png"/>
+    </properties>
+  </object>
  </objectgroup>
 </map>

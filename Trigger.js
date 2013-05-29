@@ -22,8 +22,8 @@ var Lava = cc.LayerColor.extend({
       this.scheduleUpdate()
    },
    onColide:function(other){
-      if(other == this.getParent().player){
-         this.getParent().getParent().trigger({action:"die"})
+      if(other == this.getParent().getParent().player){
+         this.getParent().getParent().trigger({action:"die"}, this)
       }
       
       //if(other.getPosition().y-other.getContentSize().height/2 < this.getPosition().y){
